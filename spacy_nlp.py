@@ -23,7 +23,7 @@ class spacy_nlp:
     A class do spacy based nlp"""
     def __init__(self):
         self.nlp_en = spacy.load('en_core_web_trf')
-        self.nlp_fr = spacy.load('fr_core_news_md')
+        #self.nlp_fr = spacy.load('fr_core_news_md')
 
 
     def analyze_en_text(self, theText):
