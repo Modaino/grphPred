@@ -3,6 +3,8 @@ from configuration import mConfiguration
 from spacy_nlp import spacy_nlp
 import json
 import pandas as pd
+import networkx as nx
+import matplotlib.pyplot as plt
 
 
 config = mConfiguration()
@@ -15,7 +17,7 @@ def loadScrapedJsonToES():
     #dataBaseHandler.init_mapping()
     dataBaseHandler.loadFromJsonToES(config.input_files['article_file_path'], config.ES['index'])
 
-def nlp_analyze_json(jsonPath):
+def pd_nlp_analyze_json(jsonPath):
     with open(jsonPath , encoding="utf8") as jsonfile:
         data = json.load(jsonfile)
 
@@ -44,13 +46,13 @@ def nlp_analyze_json(jsonPath):
 
 #end ignore \/\/\/\/\/\/\/\/\/\/\/\/\/
 
-def nlp_analyze_ES_index():
+def nlp_analyze_ES_index(G):
     dataBaseHandler = theDatabaseHandler(config)
     empty_result = pd.DataFrame(columns=['link','token','ner_label'])
-    result_df = dataBaseHandler.iterate_whole_es(config.ES['english_article_index'], 10, nlp.analyze_texts_with_nlp_into_df, empty_result, 1)
-    print(result_df)
+    result_df = dataBaseHandler.iterate_whole_es(config.ES['index'], 10, nlp.analyze_texts_with_nlp_into_df, empty_result, 1, G)
 
 if __name__ == '__main__':
     #loadScrapedJsonToES()
+    G = nx.Graph()
     pd.set_option("display.max_rows", None, "display.max_columns", None)
-    nlp_analyze_ES_index()
+    nlp_analyze_ES_index(G)

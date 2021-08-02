@@ -32,7 +32,7 @@ class spacy_nlp:
     def analyze_fr_text(self, theText):
         return self.nlp_fr(theText)
 
-    def analyze_texts_with_nlp_into_df(self, data, previous_result):
+    def analyze_texts_with_nlp_into_df(self, data, previous_result, G):
         """
         @author:  Elöd Egyed-Zsigmond
         fucntion called when iterating through an ES index to extrat NER-s from the text and append them to a dataframe
@@ -43,12 +43,18 @@ class spacy_nlp:
             text = element['_source']["message"]
 
             #debug
-            print("the link : ", element['_source']["link"])
+            #print("the link : ", element['_source']["link"])
 
             doc = self.nlp_en(text)
+            nodes = []
             for ent in doc.ents:
                 new_raw = pd.Series({'link': element['_source']["link"],'token': ent.text, 'ner_label':ent.label_})
                 previous_result = previous_result.append(new_raw, ignore_index=True)
                 #debug
-                print('---',ent.text, '|', ent.label_)
+                #print('---',ent.text, '|', ent.label_)
+                #csak akkor adjuk hozzá ha megfelelő az ent.label_
+                if G is not None:
+                    nodes.append(ent.text)
+        for elem in nodes:
+            print(elem)
         return previous_result

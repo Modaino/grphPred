@@ -43,7 +43,7 @@ class theDatabaseHandler:
 
             self.push_data(index, self.config.ES['doc_type'], jsonLine)
 
-    def iterate_whole_es(self, mIndex, chunk_size, process_data_function, emptyResult='', maxLineCount=-1):
+    def iterate_whole_es(self, mIndex, chunk_size, process_data_function, emptyResult='', maxLineCount=-1, dummy_argument = None):
         """Function to iterate through the whole ES database, and processing the data with the
         @param process_data_function: the function that will be called to process a chunk of responses, it will recieve previous results in second argument (None in first iteration)
         @param chunk_size: Prefereably the number of entries in a single response (not guarantied)
@@ -68,7 +68,7 @@ class theDatabaseHandler:
             if (maxLineCount>0 and counter > maxLineCount) : exit(0)
 
             # Before scroll, process current batch of hits
-            result = process_data_function(data['hits']['hits'], result)
+            result = process_data_function(data['hits']['hits'], result, dummy_argument)
             data = self.elasticsearch.scroll(scroll_id=sid, scroll='2m')
 
             # Update the scroll ID

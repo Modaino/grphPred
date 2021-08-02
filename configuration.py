@@ -4,13 +4,13 @@ class mConfiguration:
     """Data holder class"""
     def __init__(self):
         self.input_files = {}
-        self.input_files['article_file_path'] = "D:/dev/2020/infolegale/rascoussier/J2T/out_2021_07_21.json"
+        self.input_files['article_file_path'] = ""
         self.input_files['name_symbol_path'] = ""
 
 
         self.ES = {}
         self.ES['connection_initialiser'] = [{'host':'localhost','port':9200}]
-        self.ES['index'] = "test_json_input"
+        self.ES['index'] = "shortened_articles"
         self.ES['doc_type'] = "doc"
 
         self.ES['english_article_index'] = "all_articles"
