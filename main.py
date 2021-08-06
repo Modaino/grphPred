@@ -49,7 +49,7 @@ def pd_nlp_analyze_json(jsonPath):
 def nlp_analyze_ES_index(G):
     dataBaseHandler = theDatabaseHandler(config)
     empty_result = pd.DataFrame(columns=['link','token','ner_label'])
-    result_df = dataBaseHandler.iterate_whole_es(config.ES['index'], 10, nlp.analyze_texts_with_nlp_into_df, empty_result, 1, G)
+    result_df = dataBaseHandler.iterate_whole_es(config.ES['index'], 10, nlp.analyze_texts_with_nlp_into_df, empty_result, 2, G)
 
 if __name__ == '__main__':
     #loadScrapedJsonToES()

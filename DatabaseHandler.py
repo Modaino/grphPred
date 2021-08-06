@@ -64,8 +64,8 @@ class theDatabaseHandler:
         result = emptyResult
         while scroll_size > 0:
             #debug
-            counter = counter+1
-            if (maxLineCount>0 and counter > maxLineCount) : exit(0)
+            counter = counter + 1
+            if (maxLineCount > 0 and counter > maxLineCount) : exit(0)
 
             # Before scroll, process current batch of hits
             result = process_data_function(data['hits']['hits'], result, dummy_argument)
